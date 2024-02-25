@@ -1,4 +1,6 @@
+import type { Dispatch, SetStateAction } from "react";
+
 export type SearchGenderProps = {
   gender: string;
-  setGender: (value: string) => void;
+  setGender: Dispatch<SetStateAction<string>>;
 };

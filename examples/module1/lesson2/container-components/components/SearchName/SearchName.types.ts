@@ -1,4 +1,6 @@
+import type { Dispatch, SetStateAction } from "react";
+
 export type SearchNameProps = {
   name: string;
-  setName: (value: string) => void;
+  setName: Dispatch<SetStateAction<string>>;
 };
