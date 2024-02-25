@@ -7,3 +7,8 @@ export type SolverData = {
   result: number | string;
   error: Error | null;
 };
+
+export type ValidateDataProps = {
+  value: number,
+  errorMessage: string
+}

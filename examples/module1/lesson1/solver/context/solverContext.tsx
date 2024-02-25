@@ -1,5 +1,10 @@
-import { type ReactNode, createContext, useState, useEffect } from 'react';
-import { SolverData } from './solverContext.types';
+import {
+  type ReactNode,
+  createContext,
+  useState,
+  useCallback,
+} from 'react';
+import { SolverData, ValidateDataProps } from './solverContext.types';
 
 export const SolverContext = createContext<SolverData | null>(null);
 
@@ -9,23 +14,36 @@ export const SolverProvider = ({ children }: { children: ReactNode }) => {
   const [result, setResult] = useState<number | string>(0);
   const [error, setError] = useState<Error | null>(null);
 
-  useEffect(() => {
-    if ([firstNum, secondNum].some((value) => Number.isNaN(value))) {
-      setError(Error('Value need to be a number'));
-      return;
-    }
+  const validateData = useCallback(
+    ({ value, errorMessage }: ValidateDataProps) => {
+      if (Number.isNaN(value)) {
+        setError(Error(errorMessage));
+        return;
+      }
 
-    setError(null);
-  }, [firstNum, secondNum]);
+      setError(null);
+    },
+    [firstNum, secondNum]
+  );
 
   const setFirstNumValue = (value: string) => {
     const parsedValue = parseFloat(value);
+
+    validateData({
+      value: parsedValue,
+      errorMessage: 'Expected number in the first input field',
+    });
 
     setFirstNum(parsedValue);
   };
 
   const setSecondNumValue = (value: string) => {
     const parsedValue = parseFloat(value);
+
+    validateData({
+      value: parsedValue,
+      errorMessage: 'Expected number in the second input field',
+    });
 
     setSecondNum(parsedValue);
   };
