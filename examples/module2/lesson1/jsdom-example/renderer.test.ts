@@ -14,15 +14,28 @@ describe('User renderer', () => {
     localStorage.setItem('userRole', 'admin');
 
     const container = document.createElement('div');
+
     renderItems(container, users);
-    expect(Array.from(container.querySelectorAll('li'))).toHaveLength(3);
+
+    const listItems = Array.from(container.querySelectorAll('li'))
+
+    expect(listItems).toHaveLength(3);
+    expect(listItems[0].textContent).toEqual('Name: John, Age: 30')
+    expect(listItems[1].textContent).toEqual('(Admin) Name: Jane, Age: 25')
+    expect(listItems[2].textContent).toEqual('Name: Jack, Age: 40')
   });
 
   test('should render only regular users if non-admin is rendering the list', () => {
     localStorage.setItem('userRole', 'user');
 
     const container = document.createElement('div');
+
     renderItems(container, users);
-    expect(Array.from(container.querySelectorAll('li'))).toHaveLength(2);
+
+    const listItems = Array.from(container.querySelectorAll('li'))
+
+    expect(listItems).toHaveLength(2);
+    expect(listItems[0].textContent).toEqual('Name: John, Age: 30')
+    expect(listItems[1].textContent).toEqual('Name: Jack, Age: 40')
   });
 });
