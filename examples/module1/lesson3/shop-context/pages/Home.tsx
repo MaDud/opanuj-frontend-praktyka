@@ -1,11 +1,11 @@
-import { useContext } from 'react';
+import { useContext, useMemo } from 'react';
 import Product from '../components/Product';
 import { ProductContext } from '../contexts/ProductContext';
 
 const Home = () => {
   const { products } = useContext(ProductContext);
 
-  return (
+  return useMemo(() =>(
     <div>
       <section className="py-20">
         <div className="container mx-auto">
@@ -20,7 +20,7 @@ const Home = () => {
         </div>
       </section>
     </div>
-  );
+  ), [products]);
 };
 
 export default Home;

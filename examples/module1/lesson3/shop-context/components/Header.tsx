@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useMemo } from 'react';
 import { BsBag } from 'react-icons/bs';
 import { CiShop } from 'react-icons/ci';
 import { Link } from 'react-router-dom';
@@ -11,7 +11,7 @@ interface HeaderProps {
 const Header = ({ setIsSidebarOpen }: HeaderProps) => {
   const { itemAmount } = useContext(CartContext);
 
-  return (
+  return useMemo(() =>(
     <header className={`bg-none py-6 fixed w-full z-10 lg:px-8 transition-all`}>
       <div className="container mx-auto flex items-center justify-between h-full">
         <Link to={`/`} className="cursor-pointer ml-8">
@@ -28,7 +28,7 @@ const Header = ({ setIsSidebarOpen }: HeaderProps) => {
         </div>
       </div>
     </header>
-  );
+  ), [itemAmount]);
 };
 
 export default Header;
